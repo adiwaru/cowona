@@ -12,12 +12,9 @@ module.exports = {
             {
                 test: /\.(css)$/,
                 use: [
-                    {
-                        // Adds CSS to the DOM by injecting a `<style>` tag
                         loader: 'style-loader'
                     },
                     {
-                        // Interprets `@import` and `url()` like `import/require()` and will resolve them
                         loader: 'css-loader'
                     }
                 ]
