@@ -3,84 +3,29 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title></title>
+    <title>Pantau COVID19</title>
 </head>
 <body>
-    <title>Pantau COVID19</title>
-      </head>
-      <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="#">
-        <img src="./img/cov.png" width="50">
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-          <a class="nav-item nav-link" href="#">About</a>
-        </div>
-      </div>
-    </div>
-    </nav>
+    <web-bar></web-bar>
+
+    <global-data></global-data>
 
     <div class="container">
-     <div class="row mt-3">
-        <div class="col">
-          <h2>Pantau COVID19</h2>
-        </div>
-    </div>
-
-    <div class="row">
-    <div class="col">
-    <div class="row">
-
-      <div class="col">
-        <div class="card text-white bg-primary mb-3">
-          <div class="card-body">
-            <h5 class="card-title" id="kasus">Total Positif</h5>
-            <p class="card-text"><div id="conf"></div></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card text-white bg-success mb-3">
-          <div class="card-body">
-            <h5 class="card-title">Total Sembuh</h5>
-            <p class="card-text"><div id="reco"></div></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card text-white bg-danger mb-3">
-          <div class="card-body">
-            <h5 class="card-title">Total Meninggal</h5>
-            <p class="card-text"><div id="deat"></div></p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    </div>
-    </div>
-
      <div class="row mt-3">
        <div class="col">
          <div class="input-group mb-3">
            <div class="input-group-prepend">
              <button class="btn btn-outline-secondary" type="button" id="cari-button">Cari</button>
            </div>
-           <input type="text" class="form-control" placeholder="Cari Daerah" aria-label="" aria-describedby="basic-addon1" id="cari-input">
+           <input type="text" class="form-control" placeholder="Cari Negara" aria-label="" aria-describedby="basic-addon1" id="cari-input">
          </div>
      </div>
      </div>
-     <hr>
-     <div class="row" id="list-negara"></div>
     </div>
-
+    <hr>
+<div class="container">
+     <div class="row" id="tampilNegara"></div>
+     <div class="row" id="list-negara"></div>
+</div>
 </body>
 </html>
