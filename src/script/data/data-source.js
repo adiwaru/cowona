@@ -1,54 +1,75 @@
 //tombol Cari
 document.getElementById("cari-button").addEventListener("click", getNegara);
+
     async function getNegara() {
-      console.clear();
+      //console.clear();
       const nilai = document.getElementById("cari-input").value;
-      //Sementara Masih saya isi manual data sudah mau tercetak di console
+      const tampilNegara = document.querySelector("#tampilNegara");
+      tampilNegara.innerHTML = "";
+      tampilNegara.innerHTML  += `
+      <div class="row mt-2">
+         <div class="col">
+           <h2> Data Negara: ${nilai}</h2>
+         </div>
+      </div>`;
       //const nilai = 'indonesia';
       const baseUrl = `https://covid19.mathdro.id/api/countries/${nilai}`;
         try {
             const response = await fetch(baseUrl);
             const data = await response.json();
-            const {confirmed, deaths, recovered} = data;
+            const {confirmed, recovered, deaths} = data;
             //const {deaths} = data;
             //const {recovered} = data;
-console.log(`${deaths.value} ${recovered.value} ${confirmed.value}`);
-    renderConf(`${deaths.value} ${recovered.value} ${confirmed.value}`);
-    //renderDeat(`${deaths.value}`);
-    //renderReco(`${recovered.value}`);
-        }
+            if(response == '400') {
+            //console.log(country not found);
+            const tampilError = document.querySelector("#tampilNegara");
+            tampilError.innerHTML = "";
+            tampilError.innerHTML  += `
+            <div class="row mt-2">
+               <div class="col">
+                 <h2> Data Negara: ${nilai} Tidak Ditemukan</h2>
+               </div>
+            </div>`;
+            //} else {
+            console.log(`${deaths.value} ${recovered.value} ${confirmed.value}`);
+            renderConf(confirmed, recovered, deaths);
+            }
         catch {
-            console.log(error);
         }
     }
     getNegara();
 
-    const renderConf = (value) =>
+
+
+//tampilkan pencarian
+    const renderConf = (confirmed, recovered, deaths) =>
     {
             const listNegara = document.querySelector("#list-negara");
             listNegara.innerHTML = "";
                 listNegara.innerHTML  += `
                     <div class="col">
-                      <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                      <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
                         <div class="card-body">
                           <h5 class="card-title" id="kasus">Kasus</h5>
-                          <p class="card-text">(${value})</p>
+                          <p class="card-text">(${confirmed.value})</p>
                         </div>
                       </div>
                     </div>
+
+                    <div class="col">
+                      <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                        <div class="card-body">
+                          <h5 class="card-title" id="kasus">Sembuh</h5>
+                          <p class="card-text">(${recovered.value})</p>
+                        </div>
+                      </div>
+                    </div>
+
                     <div class="col">
                       <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
                         <div class="card-body">
                           <h5 class="card-title" id="kasus">Meninggal</h5>
-                          <p class="card-text">(${value})</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                        <div class="card-body">
-                          <h5 class="card-title" id="kasus">Sembuh</h5>
-                          <p class="card-text">(${value})</p>
+                          <p class="card-text">(${deaths.value})</p>
                         </div>
                       </div>
                     </div>
