@@ -1,36 +1,15 @@
 function main() {
 
-//jquery dari W3school tapi gak jalan
-//  $(document).ready(function(){
-//  $("#tulisan").hide();
-//    $("#hide").click(function(){
-//      $("#tulisan").hide();
-//    });
-//    $("#show").click(function(){
-//      $("#tulisan").show();
-//    });
-//  });
-
-//pake cara ini dari panduan juga gak jalan
-//  document.addEventListener("DOMContentLoaded", () => {
-//      const buttonCari = document.querySelector("#buttonCari");
-//      $("#tulisan").hide();
-//    buttonCari.addEventListener("click", function () {
-//    $(document).ready(function(){
-//
-//  $("#buttonCari").click(function(){
-//  $("#tulisan").show();
-// console.log("dipencet");
-//     });
-//       });
-
 //tombol Cari
+document.querySelector("#tampil-negara").style="display:none";
 document.getElementById("cari-button").addEventListener("click", getNegara);
     async function getNegara() {
       //console.clear();
       const nilai = document.getElementById("cari-input").value;
-      const tampilNegara = document.querySelector("#tampilNegara");
+
+      const tampilNegara = document.querySelector("#tampil-negara");
       tampilNegara.innerHTML = "";
+
       tampilNegara.innerHTML  += `
       <div class="row mt-2">
          <div class="col">
@@ -66,10 +45,10 @@ document.getElementById("cari-button").addEventListener("click", getNegara);
     getNegara();
 
 
-
 //tampilkan pencarian
     const renderConf = (confirmed, recovered, deaths) =>
     {
+            document.querySelector("#tampil-negara").style="display:block";
             const listNegara = document.querySelector("#list-negara");
             listNegara.innerHTML = "";
                 listNegara.innerHTML  += `
