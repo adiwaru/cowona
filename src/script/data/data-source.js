@@ -5,11 +5,9 @@ document.querySelector("#tampil-negara").style="display:none";
 document.getElementById("cari-button").addEventListener("click", getNegara);
     async function getNegara() {
       //console.clear();
-      const nilai = document.getElementById("cari-input").value;
-
+      const nilai = document.getElementById("cari-input").value.toUpperCase();
       const tampilNegara = document.querySelector("#tampil-negara");
       tampilNegara.innerHTML = "";
-
       tampilNegara.innerHTML  += `
       <div class="row mt-2">
          <div class="col">
@@ -22,22 +20,22 @@ document.getElementById("cari-button").addEventListener("click", getNegara);
             const response = await fetch(baseUrl);
             const data = await response.json();
             const {confirmed, recovered, deaths} = data;
-            //const {deaths} = data;
-            //const {recovered} = data;
-          //  if(response == '400') {
-            //console.log(country not found);
-            //const tampilError = document.querySelector("#tampilNegara");
-          //  tampilError.innerHTML = "";
-          //  tampilError.innerHTML  += `
-          //  <div class="row mt-2">
-          //     <div class="col">
-            //     <h2> Data Negara: ${nilai} Tidak Ditemukan</h2>
-          //  tampilError.innerHTML = ""
-          //     </div>
-        //    </div>`;
-            //} else {
-            console.log(`${deaths.value} ${recovered.value} ${confirmed.value}`);
-            renderConf(confirmed, recovered, deaths);
+            if (data.error) {
+    console.log("error"); //jika negara tidak ditemukan
+    //renderError();
+    document.querySelector("#tampil-negara").style="display:block";
+    document.querySelector("#list-negara").style="display:none";
+    tampilNegara.innerHTML = "";
+    tampilNegara.innerHTML  += `
+    <div class="row mt-2">
+       <div class="col">
+         <h5>Data Negara: ${nilai} Tidak Ditemukan</h5>
+       </div>
+    </div>`;
+  } else {
+    console.log(`${deaths.value} ${recovered.value} ${confirmed.value}`);
+    renderConf(confirmed, recovered, deaths); //negara ditemukan
+  }
             }
         catch {
         }
@@ -45,10 +43,27 @@ document.getElementById("cari-button").addEventListener("click", getNegara);
     getNegara();
 
 
+//pencarian tidak ditemukan
+//    const renderError = () =>
+//    {
+//    document.querySelector("#tampil-negara").style="display:block";
+//    document.querySelector("#list-negara").style="display:none";
+//    const tampilError = document.querySelector("#tampil-negara");
+//    tampilError.innerHTML = "";
+//    tampilError.innerHTML  += `
+//    <div class="row mt-2">
+//       <div class="col">
+//         <h5>Data Negara: ${nilai} Tidak Ditemukan</h5>
+//       </div>
+//    </div>`;
+//  };
+
+
 //tampilkan pencarian
     const renderConf = (confirmed, recovered, deaths) =>
     {
             document.querySelector("#tampil-negara").style="display:block";
+            document.querySelector("#list-negara").style="display:compact";
             const listNegara = document.querySelector("#list-negara");
             listNegara.innerHTML = "";
                 listNegara.innerHTML  += `
@@ -114,7 +129,6 @@ async function getDeath() {
 getConfirm();
 getRecover();
 getDeath();
-
 }
 
 export default main;
