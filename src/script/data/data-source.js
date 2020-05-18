@@ -1,19 +1,19 @@
 function main() {
 
-//tombol Cari
-document.querySelector("#tampil-negara").style="display:none";
-document.getElementById("cari-button").addEventListener("click", getNegara);
+//klik tombol Cari
+  document.querySelector("#tampil-negara").style="display:none";
+  document.getElementById("cari-button").addEventListener("click", getNegara);
     async function getNegara() {
-      //console.clear();
       const nilai = document.getElementById("cari-input").value.toUpperCase();
       const tampilNegara = document.querySelector("#tampil-negara");
       tampilNegara.innerHTML = "";
       tampilNegara.innerHTML  += `
+      <div class="container">
       <div class="row mt-2">
          <div class="col">
            <h5>Data Negara: ${nilai}</h5>
          </div>
-      </div>`;
+      </div> </div>`;
       //const nilai = 'indonesia';
       const baseUrl = `https://covid19.mathdro.id/api/countries/${nilai}`;
         try {
@@ -21,27 +21,26 @@ document.getElementById("cari-button").addEventListener("click", getNegara);
             const data = await response.json();
             const {confirmed, recovered, deaths} = data;
             if (data.error) {
-    console.log("error"); //jika negara tidak ditemukan
-    //renderError();
-    document.querySelector("#tampil-negara").style="display:block";
-    document.querySelector("#list-negara").style="display:none";
-    tampilNegara.innerHTML = "";
-    tampilNegara.innerHTML  += `
-    <div class="row mt-2">
-       <div class="col">
-         <h5>Data Negara: ${nilai} Tidak Ditemukan</h5>
-       </div>
-    </div>`;
-  } else {
-    console.log(`${deaths.value} ${recovered.value} ${confirmed.value}`);
-    renderConf(confirmed, recovered, deaths); //negara ditemukan
-  }
+              console.log("error"); //jika negara tidak ditemukan
+              //renderError();
+              document.querySelector("#tampil-negara").style="display:block";
+              document.querySelector("#list-negara").style="display:none";
+              tampilNegara.innerHTML = "";
+              tampilNegara.innerHTML  += `
+              <div class="row mt-2">
+                <div class="col">
+                  <h5>Data Negara: ${nilai} Tidak Ditemukan</h5>
+                </div>
+              </div>`;
+            } else {
+              console.log(`${deaths.value} ${recovered.value} ${confirmed.value}`);
+              renderCari(confirmed, recovered, deaths); //negara ditemukan
             }
+              }
         catch {
         }
     }
     getNegara();
-
 
 //pencarian tidak ditemukan
 //    const renderError = () =>
@@ -60,7 +59,7 @@ document.getElementById("cari-button").addEventListener("click", getNegara);
 
 
 //tampilkan pencarian
-    const renderConf = (confirmed, recovered, deaths) =>
+    const renderCari = (confirmed, recovered, deaths) =>
     {
             document.querySelector("#tampil-negara").style="display:block";
             document.querySelector("#list-negara").style="display:compact";
@@ -70,17 +69,9 @@ document.getElementById("cari-button").addEventListener("click", getNegara);
                     <div class="col">
                       <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
                         <div class="card-body">
-                          <h5 class="card-title" id="kasus">Kasus</h5>
-                          <p class="card-text">${confirmed.value}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-                        <div class="card-body">
-                          <h5 class="card-title" id="kasus">Sembuh</h5>
-                          <p class="card-text">${recovered.value}</p>
+                          <h5 class="card-title" id="kasus">Kasus Positif</h5>
+                          <h5 class="card-title">${confirmed.value}</h5>
+                          <p class="card-text">Orang</p>
                         </div>
                       </div>
                     </div>
@@ -88,19 +79,31 @@ document.getElementById("cari-button").addEventListener("click", getNegara);
                     <div class="col">
                       <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
                         <div class="card-body">
-                          <h5 class="card-title" id="kasus">Meninggal</h5>
-                          <p class="card-text">${deaths.value}</p>
+                          <h5 class="card-title" id="meninggal">Meninggal</h5>
+                          <h5 class="card-title">${deaths.value}</h5>
+                          <p class="card-text">Orang</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="card text-white bg-success mb-3" style="max-width: 25rem;">
+                        <div class="card-body">
+                          <h5 class="card-title" id="sembuh">Sembuh</h5>
+                          <h5 class="card-title">${recovered.value}</h5>
+                          <p class="card-text">Orang</p>
                         </div>
                       </div>
                     </div>
                 `;
-        };
+      };
 
 
-//data seluruh dunia
+//data global
 const api_url= 'https://covid19.mathdro.id/api/'
 
-async function getConfirm() {
+async function getConfirm()
+{
   const response = await fetch(api_url);
   const data = await response.json();
   const {confirmed} = data;
@@ -109,7 +112,8 @@ async function getConfirm() {
   document.getElementById('conf').textContent = value;
 }
 
-async function getRecover() {
+async function getRecover()
+{
   const response = await fetch(api_url);
   const data = await response.json();
   const {recovered} = data;
@@ -118,7 +122,8 @@ async function getRecover() {
   document.getElementById('reco').textContent = value;
 }
 
-async function getDeath() {
+async function getDeath()
+{
   const response = await fetch(api_url);
   const data = await response.json();
   const {deaths} = data;
